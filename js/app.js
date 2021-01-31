@@ -17,6 +17,12 @@ var App = {
         return `氏名 ${this.data.name} (${this.data.nameKana})`
     },
 
+    getCreationDate: function() {
+        var today = new Date()
+        
+        return `作成日 令和${3}年${today.getMonth()+1}月${today.getDate()}日\n`
+    },
+
     getDate: function(days, operation = 1) {
         var today = new Date()
         var date = new Date(today)
@@ -36,7 +42,7 @@ var App = {
 
     getSecondDateString: function() {
         var dateOne = this.getDate(0, 1)
-        var dateTwo = this.getDate(5, 1)
+        var dateTwo = this.getDate(4, 1)
         return `=====【今週おこなうこと】${dateOne}～ ${dateTwo} =====`
     },
 
@@ -75,10 +81,11 @@ var App = {
     refresh: function() {
         $("#result").empty()
         
+        var creationDateString = this.getCreationDate()
         var nameString = this.getName()
         var firstDateString = this.getFirstDateString()
         var secondDateString = this.getSecondDateString()
-        var result = `${nameString}\n\n${firstDateString}\n\n`
+        var result = `${creationDateString}${nameString}\n\n${firstDateString}\n\n`
 
         for (i = 0; i < this.data.last_week_tasks.length; i++) {
             result = result + this.data.last_week_tasks[i] + "\n"
